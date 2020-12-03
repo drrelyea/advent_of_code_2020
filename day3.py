@@ -20,36 +20,20 @@ with open('/Users/relyea/data/input_day3.txt') as aoc_fp:
 #     '.#..#...#.#'
 # ]
 
-N = len(input_data)
-bigprod = 1
-ntrees = 0
-for ii in range(N):
-    if input_data[ii][ii*1 % len(input_data[0])] == '#':
-        ntrees += 1
-print(ntrees)
-bigprod *= ntrees
-ntrees = 0
-for ii in range(N):
-    if input_data[ii][ii*3 % len(input_data[0])] == '#':
-        ntrees += 1
-print(ntrees)
-bigprod *= ntrees
-ntrees = 0
-for ii in range(N):
-    if input_data[ii][ii*5 % len(input_data[0])] == '#':
-        ntrees += 1
-print(ntrees)
-bigprod *= ntrees
-ntrees = 0
-for ii in range(N):
-    if input_data[ii][ii*7 % len(input_data[0])] == '#':
-        ntrees += 1
-print(ntrees)
-bigprod *= ntrees
-ntrees = 0
-for ii in range(0,N,2):
-    print(ii)
-    if input_data[ii][round(ii*0.5) % len(input_data[0])] == '#':
-        ntrees += 1
-print(ntrees)
-bigprod *= ntrees
+def count_trees(themap, dx, dy):
+    ix = 0
+    iy = 0
+    ntrees = 0
+    while iy < len(themap):
+        ntrees += int(themap[iy][ix % len(themap[0])] == '#')
+        ix += dx
+        iy += dy
+    return ntrees
+
+themult = 1
+for (dx,dy) in [(1,1),(3,1),(5,1),(7,1),(1,2)]:
+    ntrees = count_trees(input_data, dx, dy)
+    print(ntrees)
+    themult *= ntrees
+print(themult)
+
