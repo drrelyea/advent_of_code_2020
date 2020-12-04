@@ -5,6 +5,8 @@ import re
 with open('/Users/relyea/data/input_day4.txt') as aoc_fp:
     input_data = [theline.rstrip() for theline in aoc_fp.readlines()]
 
+input_data = [qq for qq in ' '.join(input_data).split('  ')]
+
 new_passport = True
 req_fields = [
     'byr',
@@ -16,7 +18,7 @@ req_fields = [
     'pid'
 ]
 
-def check_field(field, passport_value):
+def field_value_does_not_conform(field, passport_value):
     if field == 'byr':
         return len(passport_value) !=4 or int(passport_value) < 1920 or int(passport_value) > 2002
     if field == 'iyr':
@@ -41,28 +43,12 @@ def check_field(field, passport_value):
 def check_valid(passport):
     passport_valid = True
     for field in req_fields:
-        if field not in passport:
+        if field not in passport or field_value_does_not_conform(field, passport[field]):
             passport_valid = False
-            break
-        if check_field(field, passport[field]):
-            passport_valid = False
-            print(field, passport[field])
-            break
-    if passport_valid:
-        print({field: passport[field] for field in req_fields})
     return passport_valid
 
 passport = {}
 n_valid =0 
 for line in input_data:
-    if line == "":
-        if check_valid(passport):
-            n_valid += 1
-        passport = {}
-    else:
-        for field in line.split(" "):
-            subfield=field.split(':')
-            passport[subfield[0]] = subfield[1]
-if check_valid(passport):
-    n_valid += 1
-
+    if check_valid({aa.split(':')[0]: aa.split(':')[1] for aa in line.split(' ')}):
+        n_valid += 1

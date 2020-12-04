@@ -21,8 +21,8 @@ with open('/Users/relyea/data/input_day3.txt') as aoc_fp:
 # ]
 
 def count_trees(themap, dx, dy):
-    ix = 0
-    iy = 0
+    ix = dx
+    iy = dy
     ntrees = 0
     while iy < len(themap):
         ntrees += int(themap[iy][ix % len(themap[0])] == '#')
