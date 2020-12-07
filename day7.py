@@ -1,3 +1,12 @@
+# I apoarently suck at recognizing a recursion problem
+# however, my code works in the cyclic case as well
+# BUT I should have used recursion and recognized that the problem should terminate
+# I also don't have anywhere the regex chops to do this gently
+# I lost a LOT of time on the basic munging and on the logic of what was internally contained
+# I cannot easily debug list comprehensions, so I should avoid them for this
+# also the part boundaries are a little artificial, so I should have just done both containers from the start
+
+
 import numpy as np
 import pandas as pd
 import re
@@ -74,12 +83,9 @@ while not allpositive:
         print("cbb", contained_bags)
         if all([bagcount[cbag] > 0 for cbag in contained_bags if cbag != "otherbags"]):
             bagcount[key] = 1
-            subtractone = False
             for num, cbag in val:
                 if cbag != "otherbags" and num>0 and bagcount[cbag] > 0:
                     bagcount[key] += bagcount[cbag]*num
-            if subtractone:
-                bagcount[key] -= 1
             print("CHANGING: ", key, val, bagcount[key])
     allpositive = all([val > 0 for val in bagcount.values()])
     print("bgd", bagcount)
