@@ -1,3 +1,6 @@
+# I should really learn python string munging
+# I should not use such a stupid variable name for the input
+
 import numpy as np
 import pandas as pd
 import re

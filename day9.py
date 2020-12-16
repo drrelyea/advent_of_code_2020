@@ -1,35 +1,47 @@
 # literally as good as you could have done
 # you didn't read the instructions well enough - the code should have been a range of only 25
 # but whatever - it was fast enough
+# I couldn't have done this faster without faster fingers
+# I also lost a minute in the download
 
 import numpy as np
 import pandas as pd
 import re
+import os
+import urllib
+
+theday = '9'
+aoc_filename = '/Users/relyea/data/input_day'+theday+'.txt'
+if not os.path.exists(aoc_filename):
+    urllib.request.urlretrieve('https://adventofcode.com/2020/day/'+theday+'/input', aoc_filename)
+    
 
 with open('/Users/relyea/data/input_day9.txt') as aoc_fp:
-    input_data = [int(theline.rstrip()) for theline in aoc_fp.readlines()]
+    zz = [int(theline.rstrip()) for theline in aoc_fp.readlines()]
 
-def isthesum(input_data, total):
-    for ii in range(len(input_data)):
-        for jj in range(ii, len(input_data)):
-            if input_data[ii] + input_data[jj] == total:
+zz = [int(theline) for theline in zz]
+
+def isthesum(inp, total):
+    for ii in range(len(inp)):
+        for jj in range(ii, len(inp)):
+            if inp[ii] + inp[jj] == total:
                 return True
     return False
 
-for iline in range(25,len(input_data)):
-    if not isthesum(input_data[iline-25:iline], input_data[iline]):
-        print(input_data[iline])
+for iline in range(25,len(zz)):
+    if not isthesum(zz[iline-25:iline], zz[iline]):
+        print(zz[iline])
         break
 
 maxline = iline
-theval = input_data[maxline]
+theval = zz[maxline]
 
-def find_contiguous_range(input_data, num):
+def find_contiguous_range(inp, num):
     for iline in range(maxline):
         for jline in range(iline, maxline):
-            if sum(input_data[iline:jline]) == num:
+            if sum(inp[iline:jline]) == num:
                 print(iline,jline)
                 return
 
-find_contiguous_range(input_data[0:maxline], theval)            
+find_contiguous_range(zz[0:maxline], theval)            
 
